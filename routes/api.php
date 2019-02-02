@@ -32,4 +32,5 @@ Route::put('product', 'ProductController@store');
 // Delete Product
 Route::delete('product/{id}', 'ProductController@destroy');
 
-//
+// Find products by user
+Route::get('user/{id}/products', 'UserController@show');

@@ -28,7 +28,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function posts() {
-        return $this->hasMany('App\Product');
+    public function products()
+    {
+        return $this->belongsToMany('App\Product')
+            ->withPivot('name', 'size', 'color', 'brand')
+            ->withTimestamps();
     }
 }
