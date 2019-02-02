@@ -31,3 +31,5 @@ Route::put('product', 'ProductController@store');
 
 // Delete Product
 Route::delete('product/{id}', 'ProductController@destroy');
+
+//
