@@ -4,7 +4,7 @@ Run migrations for tables
 Seed DB with 5 users each with 10 products in inventory
 - Run "php artisan db:seed"
 
-To View al products go to:
+To View all products go to:
 - GET request to 'localhost/products-api/api/products
 
 To view individual products:
