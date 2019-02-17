@@ -1790,8 +1790,78 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Products"
+  name: "Products",
+  data: function data() {
+    return {
+      products: [],
+      product: {
+        id: "",
+        name: "",
+        size: "",
+        color: "",
+        brand: ""
+      },
+      product_id: "",
+      pagination: {},
+      edit: false
+    };
+  },
+  created: function created() {
+    this.fetchProducts();
+  },
+  methods: {
+    fetchProducts: function fetchProducts(page_url) {
+      var _this = this;
+
+      var vm = this;
+      page_url = page_url || "api/products";
+      fetch(page_url).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        console.log(res);
+        _this.products = res.data;
+        vm.makePagination(res.meta, res.links);
+      }).catch(function (err) {
+        return console.log(err);
+      });
+    },
+    makePagination: function makePagination(meta, links) {
+      console.log(meta, links);
+      var pagination = {
+        current_page: meta.current_page,
+        last_page: meta.last_page,
+        next_page_url: links.next,
+        prev_page_url: links.prev
+      };
+      this.pagination = pagination;
+      console.log("This is the pagination", this.pagination);
+    }
+  }
 });
 
 /***/ }),
@@ -36693,16 +36763,96 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    [
+      _c("h2", [_vm._v("Products WHOA!")]),
+      _vm._v(" "),
+      _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
+        _c("ul", { staticClass: "pagination" }, [
+          _c(
+            "li",
+            {
+              staticClass: "page-item",
+              class: [{ disabled: !_vm.pagination.prev_page_url }]
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass: "page-link",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      return _vm.fetchProducts(_vm.pagination.prev_page_url)
+                    }
+                  }
+                },
+                [_vm._v("Previous")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("li", { staticClass: "page-item disabled" }, [
+            _c(
+              "a",
+              { staticClass: "page-link text-dark", attrs: { href: "#" } },
+              [
+                _vm._v(
+                  "Page " +
+                    _vm._s(_vm.pagination.current_page || 0) +
+                    " of " +
+                    _vm._s(_vm.pagination.last_page || 0)
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "li",
+            {
+              staticClass: "page-item",
+              class: [{ disabled: !_vm.pagination.next_page_url }]
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass: "page-link",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      return _vm.fetchProducts(_vm.pagination.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v("Next")]
+              )
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.products, function(product) {
+        return _c(
+          "div",
+          { key: product.id, staticClass: "card card-body mb-2" },
+          [
+            _c("h3", [_vm._v(_vm._s(product.name))]),
+            _vm._v(" "),
+            _c("h4", [_vm._v(_vm._s(product.brand))]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(product.size))]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(product.color))])
+          ]
+        )
+      })
+    ],
+    2
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h2", [_vm._v("Products WHOA!")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
