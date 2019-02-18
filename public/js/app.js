@@ -1814,6 +1814,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Products",
   data: function data() {
@@ -1860,6 +1862,27 @@ __webpack_require__.r(__webpack_exports__);
       };
       this.pagination = pagination;
       console.log("This is the pagination", this.pagination);
+    },
+    deleteProduct: function deleteProduct(_ref) {
+      var _this2 = this;
+
+      var id = _ref.id,
+          name = _ref.name,
+          brand = _ref.brand;
+
+      if (confirm("Are You Sure?")) {
+        fetch("api/product/".concat(id), {
+          method: "delete"
+        }).then(function (res) {
+          return res.json();
+        }).then(function (data) {
+          alert("".concat(name, " by ").concat(brand, " Removed"));
+
+          _this2.fetchProducts();
+        }).catch(function (err) {
+          return console.log(err);
+        });
+      }
     }
   }
 });
@@ -36766,7 +36789,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h2", [_vm._v("Products WHOA!")]),
+      _c("h2", [_vm._v("Products Page")]),
       _vm._v(" "),
       _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
         _c("ul", { staticClass: "pagination" }, [
@@ -36844,7 +36867,22 @@ var render = function() {
             _vm._v(" "),
             _c("p", [_vm._v(_vm._s(product.size))]),
             _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(product.color))])
+            _c("p", [_vm._v(_vm._s(product.color))]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger",
+                on: {
+                  click: function($event) {
+                    return _vm.deleteProduct(product)
+                  }
+                }
+              },
+              [_vm._v("Delete")]
+            )
           ]
         )
       })

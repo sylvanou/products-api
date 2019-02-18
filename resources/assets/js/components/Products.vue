@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Products WHOA!</h2>
+    <h2>Products Page</h2>
     <nav aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item" v-bind:class="[{disabled: !pagination.prev_page_url}]">
@@ -24,6 +24,8 @@
       <h4>{{ product.brand}}</h4>
       <p>{{ product.size}}</p>
       <p>{{ product.color}}</p>
+      <hr>
+      <button @click="deleteProduct(product)" class="btn btn-danger">Delete</button>
     </div>
   </div>
 </template>
@@ -74,6 +76,19 @@ export default {
       };
       this.pagination = pagination;
       console.log("This is the pagination", this.pagination);
+    },
+    deleteProduct({ id, name, brand }) {
+      if (confirm("Are You Sure?")) {
+        fetch(`api/product/${id}`, {
+          method: "delete"
+        })
+          .then(res => res.json())
+          .then(data => {
+            alert(`${name} by ${brand} Removed`);
+            this.fetchProducts();
+          })
+          .catch(err => console.log(err));
+      }
     }
   }
 };
