@@ -1,6 +1,21 @@
 <template>
   <div>
     <h2>Products Page</h2>
+    <form class="mb-3" @submit.prevent="addProduct">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Name" v-model="product.name">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Brand" v-model="product.brand">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Size" v-model="product.size">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Color" v-model="product.color">
+      </div>
+      <button type="submit" class="btn btn-light btn-block">Add Product</button>
+    </form>
     <nav aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item" v-bind:class="[{disabled: !pagination.prev_page_url}]">
@@ -88,6 +103,30 @@ export default {
             this.fetchProducts();
           })
           .catch(err => console.log(err));
+      }
+    },
+    addProduct() {
+      if (this.edit === false) {
+        // Add
+        fetch("api/product", {
+          method: "post",
+          body: JSON.stringify(this.product),
+          headers: {
+            "content-type": "application/json"
+          }
+        })
+          .then(res => res.json())
+          .then(data => {
+            alert(`${this.product.name} by ${this.product.brand} was added!`);
+            this.product.name = "";
+            this.product.size = "";
+            this.product.color = "";
+            this.product.brand = "";
+            this.fetchProducts();
+          })
+          .catch(err => console.log(err));
+      } else {
+        // Update
       }
     }
   }

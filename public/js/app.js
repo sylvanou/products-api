@@ -1816,6 +1816,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Products",
   data: function data() {
@@ -1882,6 +1897,33 @@ __webpack_require__.r(__webpack_exports__);
         }).catch(function (err) {
           return console.log(err);
         });
+      }
+    },
+    addProduct: function addProduct() {
+      var _this3 = this;
+
+      if (this.edit === false) {
+        // Add
+        fetch("api/product", {
+          method: "post",
+          body: JSON.stringify(this.product),
+          headers: {
+            "content-type": "application/json"
+          }
+        }).then(function (res) {
+          return res.json();
+        }).then(function (data) {
+          alert("".concat(_this3.product.name, " by ").concat(_this3.product.brand, " was added!"));
+          _this3.product.name = "";
+          _this3.product.size = "";
+          _this3.product.color = "";
+          _this3.product.brand = "";
+
+          _this3.fetchProducts();
+        }).catch(function (err) {
+          return console.log(err);
+        });
+      } else {// Update
       }
     }
   }
@@ -36790,6 +36832,125 @@ var render = function() {
     "div",
     [
       _c("h2", [_vm._v("Products Page")]),
+      _vm._v(" "),
+      _c(
+        "form",
+        {
+          staticClass: "mb-3",
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.addProduct($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "form-group" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.product.name,
+                  expression: "product.name"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", placeholder: "Name" },
+              domProps: { value: _vm.product.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.product, "name", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.product.brand,
+                  expression: "product.brand"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", placeholder: "Brand" },
+              domProps: { value: _vm.product.brand },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.product, "brand", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.product.size,
+                  expression: "product.size"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", placeholder: "Size" },
+              domProps: { value: _vm.product.size },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.product, "size", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.product.color,
+                  expression: "product.color"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", placeholder: "Color" },
+              domProps: { value: _vm.product.color },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.product, "color", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-light btn-block",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("Add Product")]
+          )
+        ]
+      ),
       _vm._v(" "),
       _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
         _c("ul", { staticClass: "pagination" }, [
