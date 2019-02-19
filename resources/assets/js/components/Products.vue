@@ -14,7 +14,7 @@
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Color" v-model="product.color">
       </div>
-      <button type="submit" class="btn btn-light btn-block">Add Product</button>
+      <button type="submit" class="btn btn-light btn-block">Save Product</button>
     </form>
     <nav aria-label="Page navigation example">
       <ul class="pagination">
@@ -40,6 +40,7 @@
       <p>{{ product.size}}</p>
       <p>{{ product.color}}</p>
       <hr>
+      <button @click="editProduct(product)" class="btn btn-warning mb-2">Edit Product</button>
       <button @click="deleteProduct(product)" class="btn btn-danger">Delete</button>
     </div>
   </div>
@@ -127,7 +128,34 @@ export default {
           .catch(err => console.log(err));
       } else {
         // Update
+        fetch("api/product", {
+          method: "put",
+          body: JSON.stringify(this.product),
+          headers: {
+            "content-type": "application/json"
+          }
+        })
+          .then(res => res.json())
+          .then(data => {
+            alert(`${this.product.name} by ${this.product.brand} was edited!`);
+            this.product.name = "";
+            this.product.size = "";
+            this.product.color = "";
+            this.product.brand = "";
+            this.edit = false;
+            this.fetchProducts();
+          })
+          .catch(err => console.log(err));
       }
+    },
+    editProduct(product) {
+      this.edit = true;
+      this.product.id = product.id;
+      this.product.product_id = product.id;
+      this.product.name = product.name;
+      this.product.size = product.size;
+      this.product.color = product.color;
+      this.product.brand = product.brand;
     }
   }
 };

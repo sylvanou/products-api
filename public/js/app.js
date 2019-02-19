@@ -1831,6 +1831,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Products",
   data: function data() {
@@ -1923,8 +1924,38 @@ __webpack_require__.r(__webpack_exports__);
         }).catch(function (err) {
           return console.log(err);
         });
-      } else {// Update
+      } else {
+        // Update
+        fetch("api/product", {
+          method: "put",
+          body: JSON.stringify(this.product),
+          headers: {
+            "content-type": "application/json"
+          }
+        }).then(function (res) {
+          return res.json();
+        }).then(function (data) {
+          alert("".concat(_this3.product.name, " by ").concat(_this3.product.brand, " was edited!"));
+          _this3.product.name = "";
+          _this3.product.size = "";
+          _this3.product.color = "";
+          _this3.product.brand = "";
+          _this3.edit = false;
+
+          _this3.fetchProducts();
+        }).catch(function (err) {
+          return console.log(err);
+        });
       }
+    },
+    editProduct: function editProduct(product) {
+      this.edit = true;
+      this.product.id = product.id;
+      this.product.product_id = product.id;
+      this.product.name = product.name;
+      this.product.size = product.size;
+      this.product.color = product.color;
+      this.product.brand = product.brand;
     }
   }
 });
@@ -36947,7 +36978,7 @@ var render = function() {
               staticClass: "btn btn-light btn-block",
               attrs: { type: "submit" }
             },
-            [_vm._v("Add Product")]
+            [_vm._v("Save Product")]
           )
         ]
       ),
@@ -37031,6 +37062,19 @@ var render = function() {
             _c("p", [_vm._v(_vm._s(product.color))]),
             _vm._v(" "),
             _c("hr"),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-warning mb-2",
+                on: {
+                  click: function($event) {
+                    return _vm.editProduct(product)
+                  }
+                }
+              },
+              [_vm._v("Edit Product")]
+            ),
             _vm._v(" "),
             _c(
               "button",
