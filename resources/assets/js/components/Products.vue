@@ -14,7 +14,7 @@
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Color" v-model="product.color">
       </div>
-      <button type="submit" class="btn btn-light btn-block">Save Product</button>
+      <button type="submit" class="btn btn-primary btn-block">Save Product</button>
     </form>
     <nav aria-label="Page navigation example">
       <ul class="pagination">

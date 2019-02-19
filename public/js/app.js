@@ -36975,7 +36975,7 @@ var render = function() {
           _c(
             "button",
             {
-              staticClass: "btn btn-light btn-block",
+              staticClass: "btn btn-primary btn-block",
               attrs: { type: "submit" }
             },
             [_vm._v("Save Product")]
